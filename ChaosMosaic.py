@@ -1,11 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from skimage import io, feature, transform
-
 from math import floor, ceil
-from random import randint, gauss
-import cv2
+from random import randint
 from PIL import Image
+import cv2
 
 
 class ChaosMosaic:
