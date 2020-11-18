@@ -27,9 +27,37 @@ class ChaosMosaicGui(Frame):
         self._leftPanel.rowconfigure(1, weight=1)
         self._leftPanel.columnconfigure(0, weight=1)
 
-        self._testButton = Button(self._leftPanel, text="test")
-        self._testButton.grid(row=0, column=0, sticky=tk.E + tk.W + tk.N + tk.S)
+        # left panel top frame
+        self._topFrame = Frame(self._leftPanel)
+        self._topFrame.grid(row=0, column=0, sticky=tk.N + tk.S + tk.E + tk.W)
+        self._middleFrame = Frame(self._leftPanel)
+        self._middleFrame.grid(row=1, column=0, sticky=tk.N + tk.S + tk.E + tk.W)
+        self._bottomFrame = Frame(self._leftPanel)
+        self._bottomFrame.grid(row=2, column=0, sticky=tk.N + tk.S + tk.E + tk.W)
 
+        self._inputLabel = Label(self._topFrame, text="Input Image")
+        self._inputLabel.pack()
+        load = Image.open("1.jpg")
+        render = ImageTk.PhotoImage(load)
+        self._inputImage = Label(self._topFrame, image=render)
+        self._inputImage.image = render
+        self._inputImage.pack(pady=5)
+
+        # !!! Upload callback not added !!!
+        self._uploadButton = tk.Button(self._topFrame, text="Upload", width=10)
+        self._uploadButton.pack(pady=5)
+
+        # left panel mid frame
+        self._inputLabel = Label(self._topFrame, text="MIDDLE OPTIONS")
+        self._inputLabel.pack(pady=90)
+
+        # left panel bot frame
+        self._checkBoxState = tk.IntVar()
+        self._saveCheckBox = tk.Checkbutton(self._topFrame, text="Save Image", variable=self._checkBoxState)
+        self._saveCheckBox.pack(pady=5)
+
+        self._startButton = tk.Button(self._topFrame, text="Start", width=10)
+        self._startButton.pack(pady=5)
 
         # Right panel configuration
         self.columnconfigure(1, weight=4)
