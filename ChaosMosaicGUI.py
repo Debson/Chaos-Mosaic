@@ -2,7 +2,7 @@ import cv2
 import easygui
 import numpy as np
 import tkinter as tk
-from tkinter import filedialog, Tk, Frame, Label, Canvas
+from tkinter import filedialog, Tk, Frame, Label, Canvas, Button
 from PIL import Image, ImageTk
 
 
@@ -11,29 +11,31 @@ class ChaosMosaicGui(Frame):
         self._root = root
         self._root.title("Texture Synthesis Chaos Mosaic")
         self._root.resizable(width=True, height=True)
-
-        Frame.__init__(self, root)
-        self.grid(row=0, column=0, sticky=tk.E+tk.W+tk.N+tk.S)
-
         self._root.rowconfigure(0, weight=1)
         self._root.columnconfigure(0, weight=1)
 
+        Frame.__init__(self, root)
+        self.grid(row=0, column=0, sticky=tk.E + tk.W + tk.N + tk.S + tk.W)
+        self.rowconfigure(0, weight=1)
+
 
         # Left side panel - options go here
-        self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
 
-        self._leftPanel = Frame(self)
-        self._leftPanel.grid(row=0, column=0, sticky=tk.N + tk.S + tk.E)
+        self._leftPanel = Frame(self, highlightbackground="black", highlightthickness=1)
+        self._leftPanel.grid(row=0, column=0, sticky=tk.N + tk.S + tk.E + tk.W)
+        self._leftPanel.rowconfigure(1, weight=1)
+        self._leftPanel.columnconfigure(0, weight=1)
 
+        self._testButton = Button(self._leftPanel, text="test")
+        self._testButton.grid(row=0, column=0, sticky=tk.E + tk.W + tk.N + tk.S)
 
 
         # Right panel configuration
-        self.rowconfigure(0, weight=1)
-        self.columnconfigure(1, weight=1)
+        self.columnconfigure(1, weight=4)
 
-        self._rightPanel = Frame(self)
-        self._rightPanel.grid(row=0, column=1, sticky=tk.N + tk.S + tk.E)
+        self._rightPanel = Frame(self, highlightbackground="black", highlightthickness=1)
+        self._rightPanel.grid(row=0, column=1, sticky=tk.N + tk.S + tk.E + tk.W)
 
         self._rightPanel.rowconfigure(1, weight=1)
         self._rightPanel.columnconfigure(0, weight=1)
@@ -42,10 +44,10 @@ class ChaosMosaicGui(Frame):
         self._outputInfoPanel.grid(row=0, column=0, sticky=tk.N + tk.S)
 
         self._outputImageLabel = Label(self._outputInfoPanel, text="Synthesized Texture")
-        self._outputImageLabel.grid(row=0, column=0, sticky=tk.E+tk.W+tk.N+tk.S)
+        self._outputImageLabel.grid(row=0, column=0, sticky=tk.E+tk.W+tk.N+tk.S + tk.W)
 
         self._outputImagePanel = Frame(self._rightPanel)
-        self._outputImagePanel.grid(row=1, column=0, sticky=tk.N + tk.S + tk.E)
+        self._outputImagePanel.grid(row=1, column=0, sticky=tk.N + tk.S + tk.E + tk.W, padx=5, pady=5)
 
         self._outputImagePanel.rowconfigure(0, weight=1)
         self._outputImagePanel.columnconfigure(0, weight=1)
