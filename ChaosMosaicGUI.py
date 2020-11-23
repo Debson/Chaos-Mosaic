@@ -10,6 +10,7 @@ import tkinter.ttk as ttk
 from PIL import Image, ImageTk
 from ChaosMosaic import ChaosMosaic
 from ttkthemes import ThemedStyle
+import tkinter.filedialog
 
 class ChaosMosaicGui(ttk.Frame):
     def __init__(self):
