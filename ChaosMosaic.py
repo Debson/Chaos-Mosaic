@@ -8,10 +8,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from math import ceil
-from random import randint
+from random import randint, choice
 from PIL import Image
 import cv2
 from enum import Enum
+import string
+
 
 class TilePatchSelectMethodType(Enum):
     Random = 1,
@@ -68,8 +70,15 @@ class ChaosMosaic:
         # Save image to file
         self._outputImage = self._outputImage[0:self._outputImageTargetSize[0], 0:self._outputImageTargetSize[1]]
         if self._saveOutputImageToFile:
+            name = self.getRandomString()
             img = Image.fromarray(np.uint8(self._outputImage * 255))
-            img.save(self._outputImagePath + 'out.jpg')
+            img.save(self._outputImagePath + name +'.jpg')
+
+    def getRandomString(self):
+        # generates random string for output name
+        letters = string.ascii_lowercase
+        name = ''.join(choice(letters) for i in range(10))
+        return name
 
     def loadSampleImage(self):
         # Read sample image from file
